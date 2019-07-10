@@ -7,7 +7,7 @@ module.exports = {
     var self = this;
     var host = getHostFromWebservice(self.account.webservices.contacts);
     var requestPromise = new Promise(function(resolve, reject) {
-      request.get("https://" + host + "/co/startup?clientBuildNumber=" + self.clientSettings.clientBuildNumber + "&clientId=" + self.clientId + "&clientMasteringNumber=" + self.clientSettings.clientMasteringNumber + "&clientVersion=2.1&dsid=" + self.account.dsInfo.dsid + "&locale=en_US&order=last%2Cfirst", {
+      request.get("https://" + host + "/co/startup?clientBuildNumber=" + self.clientSettings.clientBuildNumber + "&clientId=" + self.clientId + "&clientMasteringNumber=" + self.clientSettings.clientMasteringNumber + "&clientVersion=2.1&dsid=" + self.account.dsInfo.dsid + "&locale=en_US&order=last,first", {
         headers: fillDefaults({
           'Host': host,
           'Cookie': cookiesToStr(self.auth.cookies)
