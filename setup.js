@@ -202,7 +202,9 @@
           });
         }
         callback(null, result);
-      });
+        });
+      
+      return req;
     },
     registerTopics(self, callback = function() {}) {
 

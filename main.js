@@ -274,12 +274,6 @@ class iCloud extends EventEmitter {
     });
   }
   initPush(callback = function () { }) {
-    // breaks the callback loop if we decide to disable push
-    if (!this.enablePush) {
-      this.enablePush = true;
-      return;
-    }
-
     var self = this;
     self.Setup.registerTopics(self, function(err, result) {
       if (err) return console.error(err);
@@ -296,7 +290,7 @@ class iCloud extends EventEmitter {
       }
     }
 
-    self.Setup.initPush(self, function(err, result) {
+    this.pushRequest = self.Setup.initPush(self, function(err, result) {
       if (err) {
         self.emit("err", {
           error: "Push token is expired. Getting new one...",
@@ -322,7 +316,8 @@ class iCloud extends EventEmitter {
   }
 
   deactivatePush() {
-    this.enablePush = false;
+    // abort the request
+    this.pushRequest.abort();
   }
 
   exportSession() {
