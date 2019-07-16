@@ -317,7 +317,7 @@ class iCloud extends EventEmitter {
 
   deactivatePush() {
     // abort the request
-    this.pushRequest.abort();
+    if (this.pushRequest) this.pushRequest.abort();
   }
 
   exportSession() {
