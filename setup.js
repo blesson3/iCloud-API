@@ -178,9 +178,18 @@
       var req = request.get(uri, {
         headers: fillDefaults({}, self.clientSettings.defaultHeaders),
         rejectUnauthorized: false
-      }, function(err, response, body) {
+      }, function (err, response, body) {
+          
         if (err) {
           return callback(err);
+        }
+        else if (response.statusCode === 409) {
+          // called when there's a conflict(?)
+          return callback({
+            error: "Conflict",
+            requestBody: body,
+            errorCode: 409
+          });
         }
         try {
           var result = JSON.parse(body);
