@@ -192,7 +192,8 @@
           });
         }
         try {
-          var result = JSON.parse(body);
+          const result = JSON.parse(body);
+          callback(null, result);
         }
         catch (e) {
           callback({
@@ -201,8 +202,7 @@
             errorCode: 21
           });
         }
-        callback(null, result);
-        });
+      });
       
       return req;
     },
