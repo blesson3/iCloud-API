@@ -20,7 +20,7 @@ class iCloud extends EventEmitter {
       // Read the session file
       fs.readFile(session, "utf8", function(err, contents) {
         // If there was no error reading the file, set the session argument to the file's contents
-        if (!err) {
+        if (!err && contents) {
           // Set session argument to the contents of the file
           session = JSON.parse(contents);
           // Continue with this session object as base
