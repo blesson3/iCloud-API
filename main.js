@@ -13,21 +13,26 @@ class iCloud extends EventEmitter {
     self.loggedIn = false;
     // enable push initially
     self.enablePush = true;
-    // If the session argument is a string, it will be interpreted as a file path and the file will be read
+    // If the session argument is a string, it will be interpreted as a file path
+    // and the file will be read
     if (typeof session === "string") {
-      // Set instances's sessionFile key to use it later as path
+      // Set instance's sessionFile key to use it later as path
       self.sessionFile = (" " + session).substring(1);
       // Read the session file
       fs.readFile(session, "utf8", function(err, contents) {
-        // If there was no error reading the file, set the session argument to the file's contents
-        if (!err && contents) {
+        // If there was no error reading the file, set the session argument to the 
+        // file's contents
+        try {
+          if (err || !contents) throw Error('invalid session file');
+
           // Set session argument to the contents of the file
           session = JSON.parse(contents);
           // Continue with this session object as base
           sessionInit(session);
         }
-        else {
-          // If it was not possible to read the file, set the session to an empty object to work with it
+        catch (e) {
+          // If it was not possible to read the file, set the session to an empty object 
+          // to work with it
           session = {};
           // Continue with the empty session
           sessionInit(session);
